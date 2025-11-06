@@ -6,6 +6,7 @@ public class TD_Grid : MonoBehaviour
     [SerializeField] private Vector2Int gridSize;
     [SerializeField] private float cellSize;
     [SerializeField] private bool drawFromCenter;
+    [SerializeField] private bool drawUnselected;
 
     private TowerPoint[,] towerPoints;
 
@@ -37,9 +38,29 @@ public class TD_Grid : MonoBehaviour
             }
         }
     }
+    private void OnDrawGizmos()
+    {
+        if (!drawUnselected) return;
+
+        Gizmos.color = Color.antiqueWhite;
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                Vector3 offset = Vector3.zero;
+                if (drawFromCenter)
+                {
+                    offset = new Vector3(gridSize.x, 0, gridSize.y) * 0.5f;
+                }
+                Gizmos.DrawWireCube((new Vector3(x, 0, y) - offset) * cellSize, Vector3.one * cellSize);
+            }
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {
+        if (drawUnselected) return;
+
         Gizmos.color = Color.antiqueWhite;
         for (int x = 0; x < gridSize.x; x++)
         {
