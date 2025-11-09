@@ -29,13 +29,10 @@ public class SingleTargetTower : Tower
         if (hits.Length == 0) return;
         // There's no need to do any clearing or further calculations if nothing is in range.
 
-        //List<Enemy> enemiesInRange = new();
         foreach (Collider col in hits)
         {
             if (!Physics.Raycast(transform.position, col.transform.position, out _, range.x, ~excludedLayers) && col.TryGetComponent(out Enemy enemy))
             {
-                //enemiesInRange.Add(enemy);
-                Debug.Log("Enemy with name of: " + enemy.name + " is in range of " + name);
                 target = enemy;
                 return;
             }
