@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 1634817537976671898}
   - component: {fileID: 1378735851944943614}
   m_Layer: 6
-  m_Name: BloodOrange
+  m_Name: Splitting_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8523764a43ecf454e91137f14d625c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  health: 1000
+  health: 10
   moveSpeed: 4
   endPointDamage: 1
   heroDamage: 1
