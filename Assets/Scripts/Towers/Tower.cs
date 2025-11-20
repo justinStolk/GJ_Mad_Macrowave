@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
+    public string Name => name;
     public ushort Cost => cost;
     public ushort Power => power;
     public float AttackInterval => attackInterval;
@@ -19,11 +20,13 @@ public abstract class Tower : MonoBehaviour
     [SerializeField, Tooltip("Which layers are excluded?")] protected LayerMask excludedLayers;
 
     private float attackTimer;
-
+    private bool activated;
 
     // Update is called once per frame
     void Update()
     {
+        if (!activated) return;
+
         attackTimer -= Time.deltaTime;
 
         if (attackTimer > 0) return;
@@ -35,6 +38,9 @@ public abstract class Tower : MonoBehaviour
 
         AttackTarget();
     }
+
+    public void ActivateTower() => activated = true;
+    public void DeactivateTower() => activated = false;
 
     protected virtual void AttackTarget()
     {

@@ -2,49 +2,61 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
 {
 
-    [SerializeField] private Wave[] waves;
-    [SerializeField] private float timeBetweenWaves;
+    [SerializeField] private WaveContainer wave;
+    [SerializeField] private float timeBetweenWaves = 10f;
+    [SerializeField] private float timeBetweenSpawns = 2f;
     [SerializeField] private UnityEvent<Enemy> onEnemySpawned;
+    [SerializeField] private Transform endpoint;
 
     private ushort waveIndex;
-    private ushort dataIndex;
-    private ushort enemyIndex;
+    private NavMeshPath path;
 
-    private void SpawnEnemy()
+    private void Awake()
     {
-        Wave current = waves[waveIndex];
-        if(current.WaveData[dataIndex].Count <= enemyIndex)
-        {
-            enemyIndex = 0;
-            dataIndex++;
-            if(current.WaveData.Length <= dataIndex)
-            {
-                dataIndex = 0;
-                EndWave();
-            }
-        }
-        Enemy spawnedEnemy = Instantiate(current.WaveData[dataIndex].Enemy, transform.position, transform.rotation);
+        path = new NavMeshPath();
+        StartCoroutine(StartWave(3f));
+    }
+
+    public bool EvaluateEndpointAccessability()
+    {
+        if (endpoint == null) return false;
+
+        return NavMesh.CalculatePath(transform.position, endpoint.position, NavMesh.AllAreas, path);
+    }
+
+    private void SpawnEnemy(Enemy template)
+    {
+        Enemy spawnedEnemy = Instantiate(template, transform.position, transform.rotation);
         onEnemySpawned?.Invoke(spawnedEnemy);
     }
 
     private void EndWave()
     {
         waveIndex++;
-        if(waveIndex >= waves.Length)
+        if(waveIndex >= wave.WaveData.Length)
         {
+            Debug.Log("All waves cleared!");
             // There are no more waves left
             return;
         }
-        StartWave(timeBetweenWaves);
+        Debug.Log("Should start the new wave with a delay!");
+        StartCoroutine(StartWave(timeBetweenWaves));
     }
 
     private IEnumerator StartWave(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SpawnEnemy();
+
+        for (int e = 0; e < wave.WaveData[waveIndex].Count; e++)
+        {
+            SpawnEnemy(wave.WaveData[waveIndex].Enemy);
+            yield return new WaitForSeconds(timeBetweenSpawns);
+        }        
+        EndWave();
     }
 }

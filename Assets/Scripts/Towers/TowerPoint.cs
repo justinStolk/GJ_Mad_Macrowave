@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TowerPoint
 {
+    public Tower GetTowerFromPoint => tower;
     public bool PointOccupied => tower != null;
 
     private Tower tower;

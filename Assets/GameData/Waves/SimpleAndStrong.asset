@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18cbde645176af47afe48e84b086f42, type: 3}
-  m_Name: BloodOranges
-  m_EditorClassIdentifier: Assembly-CSharp::Wave
+  m_Name: SimpleAndStrong
+  m_EditorClassIdentifier: Assembly-CSharp::WaveContainer
   waveData:
   - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
-    enemyCount: 6
+    enemyCount: 8
+  - enemyReference: {fileID: 2339601187471986450, guid: 5792d9b5ed712f34c9c82f2020f1ac03, type: 3}
+    enemyCount: 4
+  - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+    enemyCount: 8
