@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private float timeBetweenSpawns = 2f;
     [SerializeField] private UnityEvent<Enemy> onEnemySpawned;
+    [SerializeField] private Transform endpoint;
 
     private ushort waveIndex;
     private NavMeshPath path;
@@ -21,9 +22,11 @@ public class Spawner : MonoBehaviour
         StartCoroutine(StartWave(3f));
     }
 
-    public bool EvaluateEndpointAccessability(Vector3 endpointPosition)
+    public bool EvaluateEndpointAccessability()
     {
-        return NavMesh.CalculatePath(transform.position, endpointPosition, NavMesh.AllAreas, path);
+        if (endpoint == null) return false;
+
+        return NavMesh.CalculatePath(transform.position, endpoint.position, NavMesh.AllAreas, path);
     }
 
     private void SpawnEnemy(Enemy template)
@@ -49,7 +52,6 @@ public class Spawner : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        Debug.Log(wave.WaveData.Length);
         for (int e = 0; e < wave.WaveData[waveIndex].Count; e++)
         {
             SpawnEnemy(wave.WaveData[waveIndex].Enemy);
