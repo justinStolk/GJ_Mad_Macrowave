@@ -18,6 +18,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField, Tooltip("The amount of time between hits")] protected float attackInterval;
     [SerializeField, Min(0), Tooltip("The range of the tower (min & max)")] protected Vector2 range = Vector2.up;
     [SerializeField, Tooltip("Which layers are excluded?")] protected LayerMask excludedLayers;
+    [SerializeField, Tooltip("Which upgrades are available at the start?")] private TowerUpgrade[] startingTowerUpgrades;
 
     private float attackTimer;
     private bool activated;

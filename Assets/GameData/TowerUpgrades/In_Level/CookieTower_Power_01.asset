@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312f716683f505e4c805caa7badea4fc, type: 3}
+  m_Name: CookieTower_Power_01
+  m_EditorClassIdentifier: Assembly-CSharp::TowerUpgrade
+  upgradeName: Hard-Baked Cookies
+  upgradeDescription: 'Forget soft-baked cookies.
+
+    These hard-as-rock cookies
+    will smash your enemies into a nice pulp!'
+  upgradeCost: 20
+  powerIncrease: 5
+  rangeIncrease: 0
+  nextUnlockedUpgrades:
+  - {fileID: 11400000, guid: a252b21d2cd9ade49b97bfe5f483472f, type: 2}
