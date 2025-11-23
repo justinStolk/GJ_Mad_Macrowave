@@ -1173,7 +1173,7 @@ PrefabInstance:
     - target: {fileID: 8864325125837794894, guid: 06056ce08e8441f4a9dedf45773fa36a, type: 3}
       propertyPath: wave
       value: 
-      objectReference: {fileID: 11400000, guid: 365db820e269c4b41a353f406b2ee722, type: 2}
+      objectReference: {fileID: 11400000, guid: bf42da7f81e80174cac782821205dccd, type: 2}
     - target: {fileID: 8864325125837794894, guid: 06056ce08e8441f4a9dedf45773fa36a, type: 3}
       propertyPath: endpoint
       value: 

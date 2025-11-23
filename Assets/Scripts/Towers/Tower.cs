@@ -20,7 +20,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField, Tooltip("Which layers are excluded?")] protected LayerMask excludedLayers;
 
     private float attackTimer;
-    private bool activated;
+    private bool activated = true;
 
     // Update is called once per frame
     void Update()

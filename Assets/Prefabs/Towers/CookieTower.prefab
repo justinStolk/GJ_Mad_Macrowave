@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SingleTargetTower
   cost: 10
-  power: 2
+  power: 4
   attackInterval: 1
   range: {x: 0, y: 8}
   excludedLayers:
