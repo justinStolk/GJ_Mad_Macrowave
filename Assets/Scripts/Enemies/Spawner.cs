@@ -31,8 +31,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemy(Enemy template)
     {
-        Enemy spawnedEnemy = Instantiate(template, transform.position, transform.rotation);
-        onEnemySpawned?.Invoke(spawnedEnemy);
+        Instantiate(template, transform.position, transform.rotation);
     }
 
     private void EndWave()

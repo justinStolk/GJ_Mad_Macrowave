@@ -64,6 +64,7 @@ public class TowerShop : MonoBehaviour
     private void CreateVirtualTower(Tower template)
     {
         virtualTower = Instantiate(template);
+        virtualTower.DeactivateTower();
         onTowerShopTowerChanged?.Invoke(virtualTower);
         placementAction.started += ValidateAndPlaceTower;
     }
