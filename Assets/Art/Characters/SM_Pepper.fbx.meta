@@ -7,6 +7,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Green
+    second: {fileID: 2100000, guid: 4ac4c0d4f8c697f4bb314654690cc8c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pepper
+    second: {fileID: 2100000, guid: ec59bb78a9ca9214294c7774bd3f5236, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface1
     second: {fileID: 2100000, guid: b71dd31879665e84c8e908b0770d1a00, type: 2}
   materials:
