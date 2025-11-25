@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerShop
   availableTowers:
+  - {fileID: 7804959536544373982, guid: e3e9896d396a67c46b5e456a764f26b3, type: 3}
   - {fileID: 4674995381686380745, guid: c4719cdbf8851794e9a4a1afb5770f24, type: 3}
   shopInterface: {fileID: 993960101}
   buttonContainer: {fileID: 993960102}
