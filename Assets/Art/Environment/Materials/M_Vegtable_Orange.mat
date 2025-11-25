@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Wood01
+  m_Name: M_Vegtable_Orange
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 5f9c192c6cdbc4742a467ea4db641433, type: 2}
+  m_Parent: {fileID: 2100000, guid: 8c830782e1bc90341a8bb01f8201d649, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -28,8 +28,8 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.4811321, g: 0.3018184, b: 0.16567284, a: 1}
-    - _Color: {r: 0.4811321, g: 0.30181837, b: 0.16567281, a: 1}
+    - _BaseColor: {r: 0.9607843, g: 0.5394816, b: 0, a: 1}
+    - _Color: {r: 0.96078426, g: 0.5394816, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4580675676012204889
