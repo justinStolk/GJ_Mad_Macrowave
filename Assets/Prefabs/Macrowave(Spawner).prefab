@@ -137,7 +137,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   waves:
   - {fileID: 0}
-  timeBetweenWaves: 0
+  timeBetweenWaves: 10
+  timeBetweenSpawns: 2
+  onEnemySpawned:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7774748220958109250
 GameObject:
   m_ObjectHideFlags: 0

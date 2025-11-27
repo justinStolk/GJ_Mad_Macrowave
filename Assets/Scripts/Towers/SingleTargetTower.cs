@@ -7,6 +7,7 @@ public class SingleTargetTower : Tower
 
     [SerializeField] private Transform projectileSpawnpoint;
     [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private Transform aimElement;
 
     private Enemy target;
 
@@ -21,6 +22,7 @@ public class SingleTargetTower : Tower
     {
         if(target != null && IsTargetStillInRange())
         {
+            AimAtTarget();
             return;
         }
 
@@ -29,14 +31,12 @@ public class SingleTargetTower : Tower
         if (hits.Length == 0) return;
         // There's no need to do any clearing or further calculations if nothing is in range.
 
-        //List<Enemy> enemiesInRange = new();
         foreach (Collider col in hits)
         {
             if (!Physics.Raycast(transform.position, col.transform.position, out _, range.x, ~excludedLayers) && col.TryGetComponent(out Enemy enemy))
             {
-                //enemiesInRange.Add(enemy);
-                Debug.Log("Enemy with name of: " + enemy.name + " is in range of " + name);
                 target = enemy;
+                AimAtTarget();
                 return;
             }
         }
@@ -47,5 +47,17 @@ public class SingleTargetTower : Tower
         bool targetIsTooClose = Physics.Raycast(transform.position, target.transform.position, out _, range.x, ~excludedLayers);
         bool targetIsNotTooFar = Physics.Raycast(transform.position, target.transform.position, out _, range.y, ~excludedLayers);
         return !targetIsTooClose && targetIsNotTooFar;
+    }
+
+    private void AimAtTarget()
+    {
+        if (aimElement != null)
+        {
+            Vector3 enm = target.transform.position;
+            Vector3 aim = aimElement.position;
+            Vector3 direction = new(enm.x - aim.x, 0, enm.z - aim.z);
+            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+            aimElement.rotation = Quaternion.Euler(0, angle, 0);
+        }
     }
 }
