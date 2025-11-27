@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7250384064291503798}
-  - component: {fileID: 7804959536544373982}
+  - component: {fileID: 2174999141709587855}
   - component: {fileID: 7346162752458999054}
   m_Layer: 3
-  m_Name: Barrier
+  m_Name: WineTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,9 +32,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1000978770049172982}
+  - {fileID: 3273765227923831079}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7804959536544373982
+--- !u!114 &2174999141709587855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,20 +44,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 118653782354632183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e74a8fddf90ba54197f4944b9beea2d, type: 3}
+  m_Script: {fileID: 11500000, guid: c2264b1b43e6ab34e82ba579edb5c885, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Barrier
-  towerName: Barrier
-  description: "A sturdy table which acts as a barrier. \nCan be used to reroute
-    enemies, but doesn't attack"
-  towerIcon: {fileID: 0}
-  cost: 5
-  power: 0
-  attackInterval: 0
-  range: {x: 0, y: 1}
+  m_EditorClassIdentifier: Assembly-CSharp::MultiTargetTower
+  towerName: Wine Cabinet
+  description: 'A fast-shooting wine cabinet, which targets multiple enemies at once.
+
+    Best
+    against large groups of weaker enemies.'
+  towerIcon: {fileID: 21300000, guid: df31fdb6c006c094686d18b304cba3f0, type: 3}
+  cost: 20
+  power: 1
+  attackInterval: 0.7
+  range: {x: 0, y: 10}
   excludedLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9
+  maximumSimultaneousTargets: 2
+  projectileSpawnpoint: {fileID: 3273765227923831079}
+  projectilePrefab: {fileID: 2317513659993889396, guid: 239cf53e9c75ff144a5cd690179cd5ff, type: 3}
 --- !u!208 &7346162752458999054
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -67,12 +73,43 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.25, z: 0.5}
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &1125404344307528610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3273765227923831079}
+  m_Layer: 3
+  m_Name: ProjectileSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3273765227923831079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125404344307528610}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7250384064291503798}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6648237759848728308
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,8 +138,8 @@ Transform:
   m_GameObject: {fileID: 6648237759848728308}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7250384064291503798}

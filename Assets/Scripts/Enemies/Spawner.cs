@@ -43,7 +43,6 @@ public class Spawner : MonoBehaviour
             // There are no more waves left
             return;
         }
-        Debug.Log("Should start the new wave with a delay!");
         StartCoroutine(StartWave(timeBetweenWaves));
     }
 
