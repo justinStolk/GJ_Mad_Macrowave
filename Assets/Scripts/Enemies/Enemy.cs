@@ -6,12 +6,15 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour, IDamageable
 {
     public static Action<Enemy> OnEnemySpawn;
+    public static Action<ushort> OnEndpointReached;
+    public static Action<ushort> OnDeathFunds;
     public ushort Health => health;
 
     [SerializeField] private ushort health;
     [SerializeField] private float moveSpeed;
     [SerializeField] private ushort endPointDamage = 1;
-    [SerializeField] private ushort heroDamage = 1;
+    [SerializeField] private ushort onKillFundsReceived;
+    //[SerializeField] private ushort heroDamage = 1;
 
     private NavMeshAgent agent;
     private bool initialized;
@@ -27,7 +30,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if(initialized && !agent.pathPending && agent.remainingDistance < 0.25f)
         {
-            Debug.Log($"{name} reached the end point! This deals {endPointDamage} points of end point damage!");
+            OnEndpointReached?.Invoke(endPointDamage);
             Destroy(gameObject);
         }
     }
@@ -49,7 +52,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void OnDeath()
     {
+        OnDeathFunds?.Invoke(onKillFundsReceived);
         Destroy(gameObject);
-        // Also give the player money or something.
     }
 }

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: 10
-  moveSpeed: 4
+  moveSpeed: 1.8
   endPointDamage: 1
   heroDamage: 1
 --- !u!135 &1634817537976671898

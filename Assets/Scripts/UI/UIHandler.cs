@@ -8,6 +8,10 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private TMP_Text fundsText;
     [SerializeField] private RectTransform shopInterface;
 
+    [SerializeField] private ushort maxLives;
+    [SerializeField] private Slider lifeSlider;
+    [SerializeField] private TMP_Text lifeCounter;
+
     [Header("Tower Buying")]
     [SerializeField] private TowerShopButton buttonTemplate;
     [SerializeField] private RectTransform buttonContainer;
@@ -21,15 +25,28 @@ public class UIHandler : MonoBehaviour
 
     // This reference is here so it can be dynamically placed based on positioning of the tower
     private RectTransform upgradePanel;
+    private ushort lives;
 
     private void Awake()
     {
+        lives = maxLives;
+        lifeSlider.maxValue = maxLives;
+        lifeSlider.value = lives;
+        lifeCounter.text = lives.ToString();
+        Enemy.OnEndpointReached += TakeEndpointDamage;
         CloseDescription();
     }
 
     public void UpdateFunds(ushort newFunds)
     {
         fundsText.text = newFunds.ToString();
+    }
+
+    public void TakeEndpointDamage(ushort damage)
+    {
+        lives = (ushort)Mathf.Clamp(lives - damage, 0, maxLives);
+        lifeSlider.value = lives;
+        lifeCounter.text = lives.ToString();
     }
 
     public void DisplayUpgrades(Tower towerToUpgrade)

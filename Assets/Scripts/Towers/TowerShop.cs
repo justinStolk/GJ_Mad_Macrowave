@@ -27,6 +27,7 @@ public class TowerShop : MonoBehaviour
     {
         placementAction = InputSystem.actions.FindAction("Placement");
         onTowerInterfaceCall?.Invoke(availableTowers, PlanTower);
+        Enemy.OnDeathFunds += (ushort funds) => ChangeFunds(funds); 
     }
 
     private void Update()
@@ -35,6 +36,12 @@ public class TowerShop : MonoBehaviour
         {
             return;
         }
+    }
+
+    private void ChangeFunds(int amount)
+    {
+        funds = (ushort)Mathf.Clamp(funds + amount, 0, ushort.MaxValue);
+        onFundsChanged?.Invoke(funds);
     }
 
     private void PlanTower(Tower towerToBuy)
@@ -66,8 +73,7 @@ public class TowerShop : MonoBehaviour
         }
         if(grid.OccupyTowerPoint(virtualTower, gridPosition.x, gridPosition.y))
         {
-            funds -= virtualTower.Cost;
-            onFundsChanged?.Invoke(funds);
+            ChangeFunds(-virtualTower.Cost);
             virtualTower.ActivateTower();
             virtualTower = null;
             onTowerShopTowerChanged?.Invoke(null);
