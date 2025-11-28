@@ -2,22 +2,23 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class TowerShop : MonoBehaviour
 {
+    public ushort Funds => funds;
+
     [SerializeField] private Tower[] availableTowers;
     // This might need to be changed to getting them automatically through resources.
-    [SerializeField] private GameObject shopInterface;
-    [SerializeField] private RectTransform buttonContainer;
-    [SerializeField] private Button buttonTemplate;
     [SerializeField] private ushort funds = 100;
 
     // These references should be decoupled in the future
     [SerializeField] private TD_Grid grid;
     [SerializeField] private Spawner spawner;
 
+    [Header("Events")]
     [SerializeField] private UnityEvent<Tower> onTowerShopTowerChanged;
+    [SerializeField] private UnityEvent<Tower[], Action<Tower>> onTowerInterfaceCall;
+    [SerializeField] private UnityEvent<ushort> onFundsChanged;
 
     private InputAction placementAction;
     private Tower virtualTower;
@@ -25,10 +26,9 @@ public class TowerShop : MonoBehaviour
     private void Awake()
     {
         placementAction = InputSystem.actions.FindAction("Placement");
-        CreateInterface(availableTowers, buttonTemplate, buttonContainer);
+        onTowerInterfaceCall?.Invoke(availableTowers, PlanTower);
+        Enemy.OnDeathFunds += (ushort funds) => ChangeFunds(funds); 
     }
-
-
 
     private void Update()
     {
@@ -36,22 +36,17 @@ public class TowerShop : MonoBehaviour
         {
             return;
         }
-
     }
 
-    public void OnTowerShopOpened()
+    private void ChangeFunds(int amount)
     {
-        shopInterface.SetActive(true);
-    }
-
-    public void OnTowerShopClosed()
-    {
-        shopInterface.SetActive(false);
+        funds = (ushort)Mathf.Clamp(funds + amount, 0, ushort.MaxValue);
+        onFundsChanged?.Invoke(funds);
     }
 
     private void PlanTower(Tower towerToBuy)
     {
-        if (funds >= towerToBuy.Cost)
+        if (Funds >= towerToBuy.Cost)
         {
             CreateVirtualTower(towerToBuy);
         }
@@ -68,16 +63,6 @@ public class TowerShop : MonoBehaviour
         onTowerShopTowerChanged?.Invoke(virtualTower);
         placementAction.started += ValidateAndPlaceTower;
     }
-    private void CreateInterface(Tower[] allTowers, Button buttonTemplate, RectTransform buttonContainer)
-    {
-        for (int i = 0; i < allTowers.Length; i++)
-        {
-            Tower current = allTowers[i];
-            Button towerButton = Instantiate(buttonTemplate, buttonContainer);
-            towerButton.GetComponentInChildren<TMPro.TMP_Text>().text = $"{current.Name}: {current.Cost}";
-            towerButton.onClick.AddListener(() => PlanTower(current));
-        }
-    }
 
     private void ValidateAndPlaceTower(InputAction.CallbackContext context)
     {
@@ -88,12 +73,13 @@ public class TowerShop : MonoBehaviour
         }
         if(grid.OccupyTowerPoint(virtualTower, gridPosition.x, gridPosition.y))
         {
+            ChangeFunds(-virtualTower.Cost);
             virtualTower.ActivateTower();
             virtualTower = null;
             onTowerShopTowerChanged?.Invoke(null);
             placementAction.started -= ValidateAndPlaceTower;
             return;
         }
-        throw new System.Exception("Attempting to place a tower where that is not possible! This should not happen!");
+        throw new Exception("Attempting to place a tower where that is not possible! This should not happen!");
     }
 }

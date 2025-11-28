@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e74a8fddf90ba54197f4944b9beea2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Barrier
+  towerName: Barrier
+  description: "A sturdy table which acts as a barrier. \nCan be used to reroute
+    enemies, but doesn't attack"
+  towerIcon: {fileID: 0}
   cost: 5
   power: 0
   attackInterval: 0

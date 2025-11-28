@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c934354c5e7cc048b47f1681d03164c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SingleTargetTower
+  towerName: Cookie Tower
+  description: A tower which shoots delicious, but powerful cookies at enemies.
+  towerIcon: {fileID: 21300000, guid: 9dc7112f14712ec449d5a9ec57379e25, type: 3}
   cost: 10
   power: 4
   attackInterval: 1
