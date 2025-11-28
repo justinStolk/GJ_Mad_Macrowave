@@ -5940,7 +5940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2471f504e5510654ba59880948633450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
-  wave: {fileID: 11400000, guid: 365db820e269c4b41a353f406b2ee722, type: 2}
+  wave: {fileID: 11400000, guid: 3ab0d6a95c835b54db3ea52d72dd93a4, type: 2}
   timeBetweenWaves: 20
   timeBetweenSpawns: 2
   onEnemySpawned:
