@@ -27,7 +27,8 @@ public class TowerShop : MonoBehaviour
     {
         placementAction = InputSystem.actions.FindAction("Placement");
         onTowerInterfaceCall?.Invoke(availableTowers, PlanTower);
-        Enemy.OnDeathFunds += (ushort funds) => ChangeFunds(funds); 
+        Enemy.OnDeathFunds += (ushort funds) => ChangeFunds(funds);
+        onFundsChanged?.Invoke(funds);
     }
 
     private void Update()
