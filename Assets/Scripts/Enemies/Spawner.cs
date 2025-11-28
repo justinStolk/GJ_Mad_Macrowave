@@ -31,8 +31,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemy(Enemy template)
     {
-        Enemy spawnedEnemy = Instantiate(template, transform.position, transform.rotation);
-        onEnemySpawned?.Invoke(spawnedEnemy);
+        Instantiate(template, transform.position, transform.rotation);
     }
 
     private void EndWave()
@@ -44,7 +43,6 @@ public class Spawner : MonoBehaviour
             // There are no more waves left
             return;
         }
-        Debug.Log("Should start the new wave with a delay!");
         StartCoroutine(StartWave(timeBetweenWaves));
     }
 

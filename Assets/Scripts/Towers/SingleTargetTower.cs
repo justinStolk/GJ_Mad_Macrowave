@@ -7,6 +7,7 @@ public class SingleTargetTower : Tower
 
     [SerializeField] private Transform projectileSpawnpoint;
     [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private Transform aimElement;
 
     private Enemy target;
 
@@ -21,6 +22,7 @@ public class SingleTargetTower : Tower
     {
         if(target != null && IsTargetStillInRange())
         {
+            AimAtTarget();
             return;
         }
 
@@ -31,18 +33,39 @@ public class SingleTargetTower : Tower
 
         foreach (Collider col in hits)
         {
-            if (!Physics.Raycast(transform.position, col.transform.position, out _, range.x, ~excludedLayers) && col.TryGetComponent(out Enemy enemy))
+            if(col.TryGetComponent(out Enemy enemy))
             {
-                target = enemy;
-                return;
+                float distance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(enemy.transform.position.x, enemy.transform.position.z));
+                if(distance > range.x && distance < range.y)
+                {
+                    target = enemy;
+                    AimAtTarget();
+                    return;
+                }
             }
         }
     }
 
     private bool IsTargetStillInRange()
     {
-        bool targetIsTooClose = Physics.Raycast(transform.position, target.transform.position, out _, range.x, ~excludedLayers);
-        bool targetIsNotTooFar = Physics.Raycast(transform.position, target.transform.position, out _, range.y, ~excludedLayers);
-        return !targetIsTooClose && targetIsNotTooFar;
+        float distance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(target.transform.position.x, target.transform.position.z));
+        return distance > range.x && distance < range.y;
+    }
+
+    private void AimAtTarget()
+    {
+        if (aimElement != null)
+        {
+            Vector3 enm = target.transform.position;
+            Vector3 aim = aimElement.position;
+            // Misaim could be caused by rotation value jumping to negative. Consider using modulo operator or adding a full 360 on top.
+            Vector3 direction = new(enm.x - aim.x, 0, enm.z - aim.z);
+            float angle = (Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg) - 90f;
+            if(angle < 0)
+            {
+                angle += 360f;
+            }
+            aimElement.rotation = Quaternion.Euler(0, angle, 0);
+        }
     }
 }

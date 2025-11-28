@@ -5,13 +5,19 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
-    public string Name => name;
+    public string Name => towerName;
+    public string Description => description;
+    public Sprite Icon => towerIcon;
     public ushort Cost => cost;
     public ushort Power => power;
     public float AttackInterval => attackInterval;
     public Vector2 Range => range;
 
     protected abstract bool _hasTarget { get; }
+
+    [SerializeField] private string towerName;
+    [SerializeField, TextArea(2,3)] private string description;
+    [SerializeField] private Sprite towerIcon;
 
     [SerializeField, Tooltip("How much it costs to create this tower")] private ushort cost;
     [SerializeField, Tooltip("The amount of damage dealt per hit")] protected ushort power;
@@ -21,7 +27,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField, Tooltip("Which upgrades are available at the start?")] private TowerUpgrade[] startingTowerUpgrades;
 
     private float attackTimer;
-    private bool activated;
+    private bool activated = true;
 
     // Update is called once per frame
     void Update()
