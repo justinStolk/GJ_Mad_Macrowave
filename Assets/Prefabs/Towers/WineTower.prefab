@@ -59,7 +59,7 @@ MonoBehaviour:
   range: {x: 0, y: 10}
   excludedLayers:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 905
   startingTowerUpgrades: []
   maximumSimultaneousTargets: 2
   projectileSpawnpoint: {fileID: 3273765227923831079}
@@ -105,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 1125404344307528610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.802, z: 0}
+  m_LocalPosition: {x: 0, y: 1.297, z: -0.224}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3fcedaa508624e144a96d2a7bdbe37ae, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3fcedaa508624e144a96d2a7bdbe37ae, type: 3}
       propertyPath: m_LocalRotation.x
@@ -141,11 +141,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3fcedaa508624e144a96d2a7bdbe37ae, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3fcedaa508624e144a96d2a7bdbe37ae, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3fcedaa508624e144a96d2a7bdbe37ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3fcedaa508624e144a96d2a7bdbe37ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3fcedaa508624e144a96d2a7bdbe37ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

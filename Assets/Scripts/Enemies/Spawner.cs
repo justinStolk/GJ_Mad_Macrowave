@@ -26,6 +26,7 @@ public class Spawner : MonoBehaviour
     {
         if (endpoint == null) return false;
 
+
         return NavMesh.CalculatePath(transform.position, endpoint.position, NavMesh.AllAreas, path);
     }
 

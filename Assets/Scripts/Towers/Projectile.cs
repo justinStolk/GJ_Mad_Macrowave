@@ -5,8 +5,8 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private LayerMask interactionLayers;
 
-    private Rigidbody rb;
-    private ushort damage;
+    protected Rigidbody rb;
+    protected ushort damage;
 
     private void Awake()
     {
@@ -19,14 +19,17 @@ public class Projectile : MonoBehaviour
         rb.AddForce(direction.normalized * power, ForceMode.VelocityChange);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Tower")) return;
-
         if (other.TryGetComponent(out Enemy enemy))
         {
             enemy.TakeDamage(damage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Floor") || other.gameObject.layer == LayerMask.NameToLayer("Default"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

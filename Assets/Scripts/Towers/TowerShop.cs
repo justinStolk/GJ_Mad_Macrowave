@@ -58,6 +58,10 @@ public class TowerShop : MonoBehaviour
 
     private void CreateVirtualTower(Tower template)
     {
+        if(virtualTower != null)
+        {
+            Destroy(virtualTower);
+        }
         virtualTower = Instantiate(template);
         virtualTower.DeactivateTower();
         onTowerShopTowerChanged?.Invoke(virtualTower);
@@ -71,7 +75,7 @@ public class TowerShop : MonoBehaviour
         {
             return;
         }
-        if(grid.OccupyTowerPoint(virtualTower, gridPosition.x, gridPosition.y))
+        if(grid.OccupyTowerPoint(virtualTower, gridPosition))
         {
             ChangeFunds(-virtualTower.Cost);
             virtualTower.ActivateTower();

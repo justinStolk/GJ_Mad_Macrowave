@@ -50,7 +50,7 @@ MonoBehaviour:
   health: 50
   moveSpeed: 0.6
   endPointDamage: 2
-  heroDamage: 2
+  onKillFundsReceived: 5
 --- !u!195 &1378735851944943614
 NavMeshAgent:
   m_ObjectHideFlags: 0

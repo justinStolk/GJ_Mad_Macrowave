@@ -50,6 +50,17 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
+    // This is a very hack-like way to do this, which should be resolved later
+    public void ToggleStall(bool activated)
+    {
+        if (activated)
+        {
+            agent.isStopped = true;
+            return;
+        }
+        agent.isStopped = false;
+    }
+
     protected virtual void OnDeath()
     {
         OnDeathFunds?.Invoke(onKillFundsReceived);

@@ -50,7 +50,7 @@ MonoBehaviour:
   health: 15
   moveSpeed: 1.2
   endPointDamage: 1
-  heroDamage: 1
+  onKillFundsReceived: 1
 --- !u!135 &1634817537976671898
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -102,6 +102,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8958422132420828497}
     m_Modifications:
+    - target: {fileID: -9149204509747367787, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -154,9 +158,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3181145692707856741, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2849630078919726919, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
       propertyPath: m_Name
       value: SM_Blueberry
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341883818326039680, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2742458711193332182, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5549945677866683661, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7903552655607449040, guid: bf22381dd9e560f4e9506034df6404ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

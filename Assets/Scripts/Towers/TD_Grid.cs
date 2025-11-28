@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TD_Grid : MonoBehaviour
@@ -7,8 +8,11 @@ public class TD_Grid : MonoBehaviour
     [SerializeField] private float cellSize;
     [SerializeField] private bool drawFromCenter;
     [SerializeField] private bool drawUnselected;
+    [SerializeField] private LayerMask floorLayer;
+    [SerializeField] private LayerMask customColliderLayer;
 
-    private TowerPoint[,] towerPoints;
+    private Dictionary<Vector2Int, Tower> towers;
+    //private TowerPoint[,] towerPoints;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -18,17 +22,36 @@ public class TD_Grid : MonoBehaviour
 
     public bool IsPositionOccupied(int x, int y)
     {
-        return towerPoints[x, y].PointOccupied;
+        if(!towers.ContainsKey(new(x, y)))
+        {
+            return true;
+        }
+        Vector3 center = new Vector3(x, 0, y) * cellSize;
+        Vector3 size = Vector3.one * cellSize;
+        bool occupied = towers[new Vector2Int(x, y)] != null;
+        bool floorIsFree = !Physics.CheckBox(center, size * 0.5f, Quaternion.identity, customColliderLayer);
+        bool canPlaceTower = floorIsFree && !occupied;
+        return !canPlaceTower;
     }
 
-    public bool OccupyTowerPoint(Tower tower, int x, int y)
+    public bool OccupyTowerPoint(Tower tower, Vector2Int position)
     {
-        if (towerPoints[x, y].PointOccupied)
+        if (towers[position] != null)
         {
             return false;
         }
-        towerPoints[x, y].SetTower(tower);
+        towers[position] = tower;
         return true;
+    }
+
+    public bool RemoveTowerFromPoint(Vector2Int position)
+    {
+        if(towers[position] != null)
+        {
+            towers.Remove(position);
+            return true;
+        }
+        return false;
     }
 
     public void SnapTowerPosition(Tower towerToSnap, Vector3 referencePosition)
@@ -42,19 +65,23 @@ public class TD_Grid : MonoBehaviour
 
     public Vector2Int WorldToGrid(Vector3 worldPosition)
     {
-        int x = Mathf.RoundToInt(worldPosition.x + (0.5f * gridSize.x));
-        int y = Mathf.RoundToInt(worldPosition.z + (0.5f * gridSize.y));
+        int x = Mathf.RoundToInt(worldPosition.x);
+        int y = Mathf.RoundToInt(worldPosition.z);
         return new(x, y);
     }
 
     private void CreateGrid(int sizeX, int sizeY)
     {
-        towerPoints = new TowerPoint[sizeX, sizeY];
+        towers = new();
+        //towerPoints = new TowerPoint[sizeX, sizeY];
+        Vector2Int roundedPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));
         for (int x = 0; x < sizeX; x++)
         {
             for (int y = 0; y < sizeY; y++)
             {
-                towerPoints[x, y] = new TowerPoint();
+                Vector2Int pointAssociation = new Vector2Int(roundedPosition.x + x, roundedPosition.y + y);
+                towers.Add(pointAssociation, null);
+                //towerPoints[x, y] = new TowerPoint();
             }
         }
     }
@@ -67,12 +94,17 @@ public class TD_Grid : MonoBehaviour
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 offset = Vector3.zero;
-                if (drawFromCenter)
+                Vector3 center = new Vector3(transform.position.x, 0, transform.position.z) + new Vector3(x, 0, y) * cellSize;
+                Vector3 size = Vector3.one * cellSize;
+                if (Physics.CheckBox(center, size * 0.5f, Quaternion.identity, ~floorLayer))
                 {
-                    offset = new Vector3(gridSize.x, 0, gridSize.y) * 0.5f;
+                    Gizmos.color = Color.red;
                 }
-                Gizmos.DrawWireCube(new Vector3(transform.position.x, 0, transform.position.z) +  (new Vector3(x, 0, y) - offset) * cellSize, Vector3.one * cellSize);
+                else
+                {
+                    Gizmos.color = Color.antiqueWhite;
+                }
+                Gizmos.DrawWireCube(center, size);
             }
         }
     }
@@ -86,12 +118,18 @@ public class TD_Grid : MonoBehaviour
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 offset = Vector3.zero;
-                if (drawFromCenter)
+                Vector3 center = new Vector3(transform.position.x, 0, transform.position.z) + new Vector3(x, 0, y) * cellSize;
+                Vector3 size = Vector3.one * cellSize;
+                if (Physics.CheckBox(center, size * 0.5f, Quaternion.identity, ~floorLayer))
                 {
-                    offset = new Vector3(gridSize.x, 0, gridSize.y) * 0.5f;
-                }                
-                Gizmos.DrawWireCube(new Vector3(transform.position.x, 0, transform.position.z) + (new Vector3(x, 0, y) - offset) * cellSize , Vector3.one * cellSize);
+                    Gizmos.color = Color.red;
+                }
+                else
+                {
+                    Gizmos.color = Color.antiqueWhite;
+
+                }
+                Gizmos.DrawWireCube(center, size);
             }
         }
     }
