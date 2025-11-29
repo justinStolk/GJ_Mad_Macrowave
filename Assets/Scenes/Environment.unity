@@ -5940,8 +5940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2471f504e5510654ba59880948633450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
-  waveContainer: {fileID: 11400000, guid: bf42da7f81e80174cac782821205dccd, type: 2}
-  onEnemySpawned:
+  waveContainer: {fileID: 11400000, guid: df724b06539012f46b8968ac82dff5c5, type: 2}
+  onAllWavesCleared:
     m_PersistentCalls:
       m_Calls: []
   endpoint: {fileID: 316018480}
