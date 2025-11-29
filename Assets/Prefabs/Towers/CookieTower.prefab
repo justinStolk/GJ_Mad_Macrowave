@@ -55,7 +55,7 @@ MonoBehaviour:
   cost: 10
   power: 4
   attackInterval: 1
-  range: {x: 0, y: 8}
+  range: {x: 0, y: 3}
   excludedLayers:
     serializedVersion: 2
     m_Bits: 9

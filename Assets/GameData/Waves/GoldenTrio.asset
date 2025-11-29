@@ -21,3 +21,5 @@ MonoBehaviour:
     enemyCount: 3
   - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
     enemyCount: 10
+  - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+    enemyCount: 100
