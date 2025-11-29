@@ -12,10 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18cbde645176af47afe48e84b086f42, type: 3}
   m_Name: SimpleAndStrong
   m_EditorClassIdentifier: Assembly-CSharp::WaveContainer
-  waveData:
-  - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
-    enemyCount: 8
-  - enemyReference: {fileID: 2339601187471986450, guid: 5792d9b5ed712f34c9c82f2020f1ac03, type: 3}
-    enemyCount: 4
-  - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
-    enemyCount: 8
+  waves:
+  - waveData:
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 5
+      spawnInterval: 1
+      spawnPause: 2.5
+    - enemyReference: {fileID: 2339601187471986450, guid: e3804d2204f5cb24eb4868512f3fe52a, type: 3}
+      enemyCount: 1
+      spawnInterval: 0
+      spawnPause: 2
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 3
+      spawnInterval: 0.8
+      spawnPause: 0
+    waveExitTime: 6
+  - waveData:
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 4
+      spawnInterval: 0.8
+      spawnPause: 1
+    - enemyReference: {fileID: 2339601187471986450, guid: e3804d2204f5cb24eb4868512f3fe52a, type: 3}
+      enemyCount: 2
+      spawnInterval: 1
+      spawnPause: 0
+    waveExitTime: 5

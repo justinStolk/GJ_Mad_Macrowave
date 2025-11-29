@@ -3,8 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Wave", menuName = "Scriptable Objects/Wave")]
 public class WaveContainer : ScriptableObject
 {
-    public WaveData[] WaveData => waveData;
+    public Wave[] Waves => waves;
 
-    [SerializeField] private WaveData[] waveData;
+    [SerializeField] private Wave[] waves;
 
 }

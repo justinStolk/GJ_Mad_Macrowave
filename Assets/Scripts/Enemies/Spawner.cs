@@ -7,10 +7,8 @@ using UnityEngine.AI;
 public class Spawner : MonoBehaviour
 {
 
-    [SerializeField] private WaveContainer wave;
-    [SerializeField] private float timeBetweenWaves = 10f;
-    [SerializeField] private float timeBetweenSpawns = 2f;
-    [SerializeField] private UnityEvent<Enemy> onEnemySpawned;
+    [SerializeField] private WaveContainer waveContainer;
+    [SerializeField] private UnityEvent onAllWavesCleared;
     [SerializeField] private Transform endpoint;
 
     private ushort waveIndex;
@@ -37,24 +35,37 @@ public class Spawner : MonoBehaviour
 
     private void EndWave()
     {
-        waveIndex++;
-        if(waveIndex >= wave.WaveData.Length)
+        if(waveIndex + 1 >= waveContainer.Waves.Length)
         {
             Debug.Log("All waves cleared!");
             // There are no more waves left
             return;
         }
-        StartCoroutine(StartWave(timeBetweenWaves));
+        float exitTime = waveContainer.Waves[waveIndex].WaveExitTime;
+        waveIndex++;
+        StartCoroutine(StartWave(exitTime));
     }
 
     private IEnumerator StartWave(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        for (int e = 0; e < wave.WaveData[waveIndex].Count; e++)
+        Wave currentWave = waveContainer.Waves[waveIndex];
+        for (int e = 0; e < currentWave.WaveData.Length; e++)
         {
-            SpawnEnemy(wave.WaveData[waveIndex].Enemy);
-            yield return new WaitForSeconds(timeBetweenSpawns);
+            WaveData currentCluster = currentWave.WaveData[e];
+            for (int i = 0; i < currentCluster.Count; i++)
+            {
+                SpawnEnemy(currentCluster.Enemy);
+                if(i != currentCluster.Count - 1)
+                {
+                    yield return new WaitForSeconds(currentCluster.SpawnInterval);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(e == currentWave.WaveData.Length - 1 ? currentWave.WaveExitTime : currentCluster.SpawnPause);
+                }
+            }
         }        
         EndWave();
     }
