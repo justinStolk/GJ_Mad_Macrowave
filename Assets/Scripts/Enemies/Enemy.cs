@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private float moveSpeed;
     [SerializeField] private ushort endPointDamage = 1;
     [SerializeField] private ushort onKillFundsReceived;
-    //[SerializeField] private ushort heroDamage = 1;
+    [SerializeField] private AudioSource deathSoundSource;
 
     private NavMeshAgent agent;
     private bool initialized;
@@ -53,17 +53,16 @@ public class Enemy : MonoBehaviour, IDamageable
     // This is a very hack-like way to do this, which should be resolved later
     public void ToggleStall(bool activated)
     {
-        if (activated)
-        {
-            agent.isStopped = true;
-            return;
-        }
-        agent.isStopped = false;
+        agent.isStopped = activated;
     }
 
     protected virtual void OnDeath()
     {
         OnDeathFunds?.Invoke(onKillFundsReceived);
+        if(deathSoundSource != null)
+        {
+            deathSoundSource.Play();
+        }
         Destroy(gameObject);
     }
 }

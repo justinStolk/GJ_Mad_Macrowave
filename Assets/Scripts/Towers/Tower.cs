@@ -18,6 +18,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] private string towerName;
     [SerializeField, TextArea(2,3)] private string description;
     [SerializeField] private Sprite towerIcon;
+    [SerializeField] private AudioSource shootingSoundSource;
 
     [SerializeField, Tooltip("How much it costs to create this tower")] private ushort cost;
     [SerializeField, Tooltip("The amount of damage dealt per hit")] protected ushort power;
@@ -52,6 +53,10 @@ public abstract class Tower : MonoBehaviour
     protected virtual void AttackTarget()
     {
         attackTimer = attackInterval;
+        if(shootingSoundSource != null)
+        {
+            shootingSoundSource.Play();
+        }
     }
 
     protected abstract void FindTarget();
