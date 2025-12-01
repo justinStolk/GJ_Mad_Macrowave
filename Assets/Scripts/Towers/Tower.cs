@@ -30,6 +30,12 @@ public abstract class Tower : MonoBehaviour
     private float attackTimer;
     private bool activated = true;
 
+
+    private void Awake()
+    {
+        MenuHandler.OnGamePaused += DeactivateTower;
+        MenuHandler.OnGameResumed += ActivateTower;
+    }
     // Update is called once per frame
     void Update()
     {

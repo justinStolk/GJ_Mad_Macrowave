@@ -7,6 +7,7 @@ public class UIHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text fundsText;
     [SerializeField] private RectTransform shopInterface;
+    [SerializeField] private RectTransform pauseMenu;
 
     [SerializeField] private TMP_Text waveCounterText;
 
@@ -39,6 +40,8 @@ public class UIHandler : MonoBehaviour
         Enemy.OnEndpointReached += TakeEndpointDamage;
         waveCounterText.text = $"Wave pending...";
         CloseDescription();
+
+        MenuHandler.OnGamePaused += () => pauseMenu.gameObject.SetActive(true);
     }
 
     public void UpdateFunds(ushort newFunds)

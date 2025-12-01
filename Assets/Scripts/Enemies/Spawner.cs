@@ -13,11 +13,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform endpoint;
 
     private ushort waveIndex;
-    private NavMeshPath path;
+    //private NavMeshPath path;
 
     private void Awake()
     {
-        path = new NavMeshPath();
+        //path = new NavMeshPath();
         StartCoroutine(StartWave(3f));
     }
 
@@ -25,8 +25,9 @@ public class Spawner : MonoBehaviour
     {
         if (endpoint == null) return false;
 
-
-        return NavMesh.CalculatePath(transform.position, endpoint.position, NavMesh.AllAreas, path);
+        NavMeshPath newPath = new();
+        NavMesh.CalculatePath(transform.position, endpoint.position, NavMesh.AllAreas, newPath);
+        return newPath.status == NavMeshPathStatus.PathComplete;
     }
 
     private void SpawnEnemy(Enemy template)

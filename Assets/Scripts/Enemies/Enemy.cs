@@ -18,26 +18,40 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private NavMeshAgent agent;
     private bool initialized;
+    private Vector3 destination;
+    private static float distanceCheckInterval = 0.2f;
+    private float distanceCheckTimer;
 
     private void Awake()
     {
+        MenuHandler.OnGamePaused += () => agent.isStopped = true;
+        MenuHandler.OnGameResumed += () => agent.isStopped = false;
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
         OnEnemySpawn?.Invoke(this);
+        distanceCheckTimer = Time.time + distanceCheckInterval;
     }
 
     private void Update()
     {
-        if(initialized && !agent.pathPending && agent.remainingDistance < 0.25f)
+        if (!initialized) return;
+
+        if(distanceCheckTimer <= Time.time)
         {
-            OnEndpointReached?.Invoke(endPointDamage);
-            Destroy(gameObject);
+            distanceCheckTimer = Time.time + distanceCheckInterval;
+            float distance = Vector3.Distance(destination, transform.position);
+            if(distance <= agent.stoppingDistance + 0.5f)
+            {
+                OnEndpointReached?.Invoke(endPointDamage);
+                Destroy(gameObject);
+            }
         }
     }
 
     public void SetTarget(Vector3 position)
     {
         agent.SetDestination(position);
+        destination = position;
         initialized = true;
     }
 

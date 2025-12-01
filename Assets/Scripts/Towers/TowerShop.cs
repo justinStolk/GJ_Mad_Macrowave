@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -16,6 +18,9 @@ public class TowerShop : MonoBehaviour
     [SerializeField] private TowerRangeRenderer tRenderer;
     [SerializeField] private Spawner spawner;
 
+    //[SerializeField] private Material validMaterial;
+    //[SerializeField] private Material invalidMaterial;
+
     [Header("Events")]
     [SerializeField] private UnityEvent<Tower> onTowerShopTowerChanged;
     [SerializeField] private UnityEvent<Tower[], Action<Tower>> onTowerInterfaceCall;
@@ -23,6 +28,7 @@ public class TowerShop : MonoBehaviour
 
     private InputAction placementAction;
     private Tower virtualTower;
+    private List<Material> towerMaterials;
 
     private void Awake()
     {
@@ -30,14 +36,6 @@ public class TowerShop : MonoBehaviour
         onTowerInterfaceCall?.Invoke(availableTowers, PlanTower);
         Enemy.OnDeathFunds += (ushort funds) => ChangeFunds(funds);
         onFundsChanged?.Invoke(funds);
-    }
-
-    private void Update()
-    {
-        if (virtualTower == null)
-        {
-            return;
-        }
     }
 
     private void ChangeFunds(int amount)
@@ -66,6 +64,14 @@ public class TowerShop : MonoBehaviour
         }
         virtualTower = Instantiate(template);
         virtualTower.DeactivateTower();
+        virtualTower.GetComponent<NavMeshObstacle>().enabled = false;
+        //Material[] vtMaterials = virtualTower.GetComponentInChildren<MeshRenderer>().materials;
+        //for (int i = 0; i < vtMaterials.Length; i++)
+        //{
+        //    towerMaterials.Add(vtMaterials[i]);
+        //    vtMaterials[i] = validMaterial;
+        //}
+
         onTowerShopTowerChanged?.Invoke(virtualTower);
         placementAction.started += ValidateAndPlaceTower;
     }
@@ -73,11 +79,20 @@ public class TowerShop : MonoBehaviour
     private void ValidateAndPlaceTower(InputAction.CallbackContext context)
     {
         Vector2Int gridPosition = grid.WorldToGrid(virtualTower.transform.position);
-        if (grid.IsPositionOccupied(gridPosition.x, gridPosition.y) || !spawner.EvaluateEndpointAccessability())
+        if (grid.IsPositionOccupied(gridPosition.x, gridPosition.y))
         {
             return;
         }
-        if(grid.OccupyTowerPoint(virtualTower, gridPosition))
+        NavMeshObstacle towerNMObstacle = virtualTower.GetComponent<NavMeshObstacle>();
+
+        towerNMObstacle.enabled = true;
+        if (!spawner.EvaluateEndpointAccessability())
+        {
+            towerNMObstacle.enabled = false;
+            return;
+        }
+
+        if (grid.OccupyTowerPoint(virtualTower, gridPosition))
         {
             ChangeFunds(-virtualTower.Cost);
             virtualTower.ActivateTower();
