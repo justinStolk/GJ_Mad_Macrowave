@@ -4303,7 +4303,7 @@ MonoBehaviour:
   fundsText: {fileID: 324563613}
   shopInterface: {fileID: 1506619459}
   waveCounterText: {fileID: 1506619462}
-  maxLives: 999
+  maxLives: 20
   lifeSlider: {fileID: 1506619461}
   lifeCounter: {fileID: 1506619460}
   buttonTemplate: {fileID: 394930064309474240, guid: e4b60cac7a4ab1b4b849aa7a69b4b77d, type: 3}

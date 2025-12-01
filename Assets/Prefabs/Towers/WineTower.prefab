@@ -59,7 +59,7 @@ MonoBehaviour:
   shootingSoundSource: {fileID: -8353529762970391469}
   cost: 30
   power: 2
-  attackInterval: 0.33
+  attackInterval: 0.25
   range: {x: 0, y: 3}
   excludedLayers:
     serializedVersion: 2
@@ -95,10 +95,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: ea55680a997893146a7fecbc4f6d1ace, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.1
+  m_Pitch: 1.5
   Loop: 0
   Mute: 0
   Spatialize: 0
