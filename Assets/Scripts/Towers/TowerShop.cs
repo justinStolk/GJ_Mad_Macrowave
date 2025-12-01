@@ -13,6 +13,7 @@ public class TowerShop : MonoBehaviour
 
     // These references should be decoupled in the future
     [SerializeField] private TD_Grid grid;
+    [SerializeField] private TowerRangeRenderer tRenderer;
     [SerializeField] private Spawner spawner;
 
     [Header("Events")]
@@ -83,6 +84,7 @@ public class TowerShop : MonoBehaviour
             virtualTower = null;
             onTowerShopTowerChanged?.Invoke(null);
             placementAction.started -= ValidateAndPlaceTower;
+            tRenderer.StopRender();
             return;
         }
         throw new Exception("Attempting to place a tower where that is not possible! This should not happen!");

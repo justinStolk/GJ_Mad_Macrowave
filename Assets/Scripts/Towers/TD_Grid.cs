@@ -11,6 +11,8 @@ public class TD_Grid : MonoBehaviour
     [SerializeField] private LayerMask floorLayer;
     [SerializeField] private LayerMask customColliderLayer;
 
+    [SerializeField] private TowerRangeRenderer tRenderer;
+
     private Dictionary<Vector2Int, Tower> towers;
     //private TowerPoint[,] towerPoints;
 
@@ -61,6 +63,7 @@ public class TD_Grid : MonoBehaviour
 
         Vector3 towerPosition = new Vector3(x, 0, z);
         towerToSnap.transform.position = towerPosition;
+        tRenderer.RenderRadius(towerToSnap.Range.y, towerPosition);
     }
 
     public Vector2Int WorldToGrid(Vector3 worldPosition)
