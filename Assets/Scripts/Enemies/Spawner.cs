@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
 {
 
     [SerializeField] private WaveContainer waveContainer;
+    [SerializeField] private UnityEvent onWaveStarted;
     [SerializeField] private UnityEvent onAllWavesCleared;
     [SerializeField] private Transform endpoint;
 
@@ -50,6 +51,7 @@ public class Spawner : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
+        onWaveStarted?.Invoke();
         Wave currentWave = waveContainer.Waves[waveIndex];
         for (int e = 0; e < currentWave.WaveData.Length; e++)
         {

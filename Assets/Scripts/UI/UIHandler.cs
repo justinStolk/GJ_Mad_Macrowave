@@ -8,6 +8,8 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private TMP_Text fundsText;
     [SerializeField] private RectTransform shopInterface;
 
+    [SerializeField] private TMP_Text waveCounterText;
+
     [SerializeField] private ushort maxLives;
     [SerializeField] private Slider lifeSlider;
     [SerializeField] private TMP_Text lifeCounter;
@@ -26,6 +28,7 @@ public class UIHandler : MonoBehaviour
     // This reference is here so it can be dynamically placed based on positioning of the tower
     private RectTransform upgradePanel;
     private ushort lives;
+    private byte waveCount;
 
     private void Awake()
     {
@@ -34,6 +37,7 @@ public class UIHandler : MonoBehaviour
         lifeSlider.value = lives;
         lifeCounter.text = lives.ToString();
         Enemy.OnEndpointReached += TakeEndpointDamage;
+        waveCounterText.text = $"Wave pending...";
         CloseDescription();
     }
 
@@ -53,6 +57,12 @@ public class UIHandler : MonoBehaviour
     {
         throw new System.NotImplementedException();
         // Can be implemented when merged with tower upgrades branch
+    }
+
+    public void IncrementWaveCount()
+    {
+        waveCount++;
+        waveCounterText.text = $"Wave {waveCount}";
     }
 
     public void CreateTowerShopInterface(Tower[] allTowers, System.Action<Tower> onButtonActivated)

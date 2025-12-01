@@ -4302,6 +4302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIHandler
   fundsText: {fileID: 324563613}
   shopInterface: {fileID: 1506619459}
+  waveCounterText: {fileID: 1506619462}
   maxLives: 999
   lifeSlider: {fileID: 1506619461}
   lifeCounter: {fileID: 1506619460}
@@ -5941,6 +5942,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   waveContainer: {fileID: 11400000, guid: df724b06539012f46b8968ac82dff5c5, type: 2}
+  onWaveStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 387044867}
+        m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
+        m_MethodName: IncrementWaveCount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onAllWavesCleared:
     m_PersistentCalls:
       m_Calls: []
@@ -14185,6 +14201,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+--- !u!114 &1506619462 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5313077600253960161, guid: 04db6e24e193d3b44a9c16e5ffd6d1ce, type: 3}
+  m_PrefabInstance: {fileID: 1506619458}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1507139467
 GameObject:
   m_ObjectHideFlags: 0
