@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8523764a43ecf454e91137f14d625c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  health: 18
+  health: 600
   moveSpeed: 2.5
-  endPointDamage: 1
-  onKillFundsReceived: 2
+  endPointDamage: 5
+  onKillFundsReceived: 10
 --- !u!135 &1634817537976671898
 SphereCollider:
   m_ObjectHideFlags: 0

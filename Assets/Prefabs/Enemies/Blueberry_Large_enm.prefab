@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: 40
   moveSpeed: 1.2
-  endPointDamage: 1
+  endPointDamage: 2
   onKillFundsReceived: 1
 --- !u!135 &1634817537976671898
 SphereCollider:

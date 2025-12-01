@@ -48,7 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SingleTargetTower
   towerName: Donut Stack
-  description: A tower which shoots donuts, halting enemies by trapping them inside.
+  description: 'A stack of donuts that shoots... well.. donuts, halting enemies by
+    trapping them inside.
+
+    Range: 2'
   towerIcon: {fileID: 21300000, guid: 72ebb3a6f6e43ee4189c8ff952f21ab4, type: 3}
   cost: 20
   power: 1

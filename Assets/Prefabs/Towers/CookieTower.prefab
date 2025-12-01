@@ -50,7 +50,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SingleTargetTower
   towerName: Cookie Tower
-  description: A tower which shoots delicious, but powerful cookies at enemies.
+  description: 'A glass of milk which shoots delicious, but powerful cookies at enemies.
+
+    Range:
+    3'
   towerIcon: {fileID: 21300000, guid: 9dc7112f14712ec449d5a9ec57379e25, type: 3}
   cost: 10
   power: 5

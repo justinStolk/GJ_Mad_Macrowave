@@ -50,7 +50,7 @@ MonoBehaviour:
   health: 40
   moveSpeed: 2.5
   endPointDamage: 2
-  onKillFundsReceived: 2
+  onKillFundsReceived: 1
 --- !u!135 &1634817537976671898
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: 50
-  moveSpeed: 0.6
-  endPointDamage: 2
-  onKillFundsReceived: 5
+  moveSpeed: 0.8
+  endPointDamage: 5
+  onKillFundsReceived: 10
 --- !u!195 &1378735851944943614
 NavMeshAgent:
   m_ObjectHideFlags: 0
