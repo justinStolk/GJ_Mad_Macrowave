@@ -62,9 +62,9 @@ public class Spawner : MonoBehaviour
 
         onWaveStarted?.Invoke();
         Wave currentWave = waveContainer.Waves[waveIndex];
-        for (int e = 0; e < currentWave.WaveData.Length; e++)
+        for (int e = 0; e < currentWave.SpawnData.Length; e++)
         {
-            WaveData currentCluster = currentWave.WaveData[e];
+            SpawnData currentCluster = currentWave.SpawnData[e];
             for (int i = 0; i < currentCluster.Count; i++)
             {
                 SpawnEnemy(currentCluster.Enemy);
@@ -74,7 +74,7 @@ public class Spawner : MonoBehaviour
                 }
                 else
                 {
-                    yield return new WaitForSeconds(e == currentWave.WaveData.Length - 1 ? currentWave.WaveExitTime : currentCluster.SpawnPause);
+                    yield return new WaitForSeconds(e == currentWave.SpawnData.Length - 1 ? currentWave.WaveExitTime : currentCluster.SpawnPause);
                 }
             }
         }        

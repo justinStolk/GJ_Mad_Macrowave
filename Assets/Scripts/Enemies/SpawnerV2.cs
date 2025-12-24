@@ -12,19 +12,28 @@ public class SpawnerV2 : MonoBehaviour
     [SerializeField] private UnityEvent onAllWavesCleared;
     [SerializeField] private Transform endpoint;
 
+    private Wave CurrentWave { get { return waveContainer.Waves[waveIndex]; } }
+    private SpawnData CurrentSpawnData { get { return CurrentWave.SpawnData[spawnDataIndex]; } }
+    private InputAction positioningAction;
+
     private bool isPaused;
     private bool hasStarted;
 
     private float spawnTimer;
+    private float intervalTime;
 
-    private Wave currentWave;
     private byte waveIndex;
+    private byte spawnDataIndex;
+    private byte enemyCounter;
 
-    private WaveData currentWaveData;
-    private byte waveDataIndex;
 
-    private byte clusterIndex;
+    private void Awake()
+    {
+        MenuHandler.OnGamePaused += () => isPaused = true;
+        MenuHandler.OnGameResumed += () => isPaused = false;
 
+        positioningAction = InputSystem.actions.FindAction("Positioning");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -33,23 +42,26 @@ public class SpawnerV2 : MonoBehaviour
 
         spawnTimer += Time.deltaTime;
 
-        HandleCluster();
+        if (spawnTimer < intervalTime)
+            return;
+
+        spawnTimer = 0;
+        HandleWave();
     }
 
 
     public void BeginSpawning()
     {
-        currentWave = waveContainer.Waves[0];
-        currentWaveData = currentWave.WaveData[0];
+        intervalTime = CurrentSpawnData.SpawnInterval;
         onWaveStarted?.Invoke();
         hasStarted = true;
     }
 
     public IEnumerator EvaluateEndPointAccessability(NavMeshObstacle obstacle, Action<bool> onResultFound)
     {
-        InputSystem.actions.FindAction("Positioning").Disable();
+        positioningAction.Disable();
 
-        float waitTime = obstacle.carvingTimeToStationary + 0.25f;
+        float waitTime = obstacle.carvingTimeToStationary + 0.1f;
         
         yield return new WaitForSeconds(waitTime);
 
@@ -58,7 +70,6 @@ public class SpawnerV2 : MonoBehaviour
 
         bool result = newPath.status == NavMeshPathStatus.PathComplete;
 
-        Debug.Log(result);
         obstacle.enabled = result;
         onResultFound?.Invoke(result);
     }
@@ -68,43 +79,34 @@ public class SpawnerV2 : MonoBehaviour
         Instantiate(template, transform.position, transform.rotation);
     }
 
-    private void HandleCluster()
+    private void HandleWave()
     {
-        bool clusterIsFinished = clusterIndex == currentWaveData.Count;
-        float waitTime = clusterIndex < currentWaveData.Count ? currentWaveData.SpawnInterval : currentWaveData.SpawnPause;
-       
-        if (spawnTimer < waitTime) return;
-
-        spawnTimer = 0;
-
-        if (clusterIsFinished)
+        SpawnNewEnemy(CurrentSpawnData.Enemy);
+        enemyCounter++;
+        if (enemyCounter == CurrentSpawnData.Count)
         {
-            clusterIndex = 0;
-            waveDataIndex++;
-            if(waveDataIndex < currentWave.WaveData.Length)
+            // This is the last enemy in this data
+            enemyCounter = 0;
+            spawnDataIndex++;
+            if (spawnDataIndex >= CurrentWave.SpawnData.Length)
             {
-                currentWaveData = currentWave.WaveData[waveDataIndex];
+                // This was the last spawn data in this wave
+                spawnDataIndex = 0;
+                waveIndex++;
+                if (waveIndex >= waveContainer.Waves.Length)
+                {
+                    // This was the last wave
+                    EndSpawningSequence();
+                    return;
+                }
+                onWaveStarted?.Invoke();
+                intervalTime = CurrentWave.WaveExitTime;
                 return;
             }
-            PrepareNextWave();
+            intervalTime = CurrentSpawnData.SpawnPause;
             return;
         }
-        clusterIndex++;
-        SpawnNewEnemy(currentWaveData.Enemy);
-    }
-
-    private void PrepareNextWave()
-    {
-        waveIndex++;
-        waveDataIndex = 0;
-        if(waveIndex > waveContainer.Waves.Length)
-        {
-            EndSpawningSequence();
-            return;
-        }
-        onWaveStarted?.Invoke();
-        currentWave = waveContainer.Waves[waveIndex];
-        currentWaveData = currentWave.WaveData[waveDataIndex];
+        intervalTime = CurrentSpawnData.SpawnInterval;
     }
 
     private void EndSpawningSequence()

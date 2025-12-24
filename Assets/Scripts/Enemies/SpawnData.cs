@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class WaveData
+public class SpawnData
 {
     public Enemy Enemy => enemyReference;
     public ushort Count => enemyCount;
