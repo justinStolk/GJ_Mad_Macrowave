@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
 {
-
+    [SerializeField] private bool playOnAwake;
     [SerializeField] private WaveContainer waveContainer;
     [SerializeField] private UnityEvent onWaveStarted;
     [SerializeField] private UnityEvent onAllWavesCleared;
@@ -18,7 +18,15 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         //path = new NavMeshPath();
-        StartCoroutine(StartWave(3f));
+        if (playOnAwake)
+        {
+            StartCoroutine(StartWave(3f));
+        }
+    }
+    
+    public void BeginSpawning()
+    {
+        StartCoroutine(StartWave(1f));
     }
 
     public bool EvaluateEndpointAccessability()

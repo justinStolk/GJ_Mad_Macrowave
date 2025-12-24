@@ -16,7 +16,7 @@ public class TowerShop : MonoBehaviour
     // These references should be decoupled in the future
     [SerializeField] private TD_Grid grid;
     [SerializeField] private TowerRangeRenderer tRenderer;
-    [SerializeField] private Spawner spawner;
+    [SerializeField] private SpawnerV2 spawner;
 
     //[SerializeField] private Material validMaterial;
     //[SerializeField] private Material invalidMaterial;
@@ -73,10 +73,10 @@ public class TowerShop : MonoBehaviour
         //}
 
         onTowerShopTowerChanged?.Invoke(virtualTower);
-        placementAction.started += ValidateAndPlaceTower;
+        placementAction.started += ValidateTower;
     }
 
-    private void ValidateAndPlaceTower(InputAction.CallbackContext context)
+    private void ValidateTower(InputAction.CallbackContext context)
     {
         Vector2Int gridPosition = grid.WorldToGrid(virtualTower.transform.position);
         if (grid.IsPositionOccupied(gridPosition.x, gridPosition.y))
@@ -86,11 +86,17 @@ public class TowerShop : MonoBehaviour
         NavMeshObstacle towerNMObstacle = virtualTower.GetComponent<NavMeshObstacle>();
 
         towerNMObstacle.enabled = true;
-        if (!spawner.EvaluateEndpointAccessability())
+        StartCoroutine(spawner.EvaluateEndPointAccessability(towerNMObstacle, PlaceTowerIfValid));
+    }
+
+    private void PlaceTowerIfValid(bool positionIsValid)
+    {
+        if (!positionIsValid)
         {
-            towerNMObstacle.enabled = false;
+            InputSystem.actions.FindAction("Positioning").Enable();
             return;
         }
+        Vector2Int gridPosition = grid.WorldToGrid(virtualTower.transform.position);
 
         if (grid.OccupyTowerPoint(virtualTower, gridPosition))
         {
@@ -98,8 +104,10 @@ public class TowerShop : MonoBehaviour
             virtualTower.ActivateTower();
             virtualTower = null;
             onTowerShopTowerChanged?.Invoke(null);
-            placementAction.started -= ValidateAndPlaceTower;
+            placementAction.started -= ValidateTower;
             tRenderer.StopRender();
+            InputSystem.actions.FindAction("Positioning").Enable();
+
             return;
         }
         throw new Exception("Attempting to place a tower where that is not possible! This should not happen!");
