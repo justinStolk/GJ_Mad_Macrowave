@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class Tower : MonoBehaviour
+public abstract class Tower : GridObject
 {
-    public string Name => towerName;
-    public string Description => description;
-    public Sprite Icon => towerIcon;
-    public ushort Cost => cost;
+    public override string Name => towerName;
+    public override string Description => description;
+    public override Sprite Icon => towerIcon;
+    public override ushort Cost => cost;
     public ushort Power => power;
     public float AttackInterval => attackInterval;
     public Vector2 Range => range;

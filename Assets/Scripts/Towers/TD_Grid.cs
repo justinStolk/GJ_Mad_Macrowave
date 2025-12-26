@@ -13,7 +13,7 @@ public class TD_Grid : MonoBehaviour
 
     [SerializeField] private TowerRangeRenderer tRenderer;
 
-    private Dictionary<Vector2Int, Tower> towers;
+    private Dictionary<Vector2Int, GridObject> gridObjects;
     //private TowerPoint[,] towerPoints;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,46 +24,49 @@ public class TD_Grid : MonoBehaviour
 
     public bool IsPositionOccupied(int x, int y)
     {
-        if(!towers.ContainsKey(new(x, y)))
+        if(!gridObjects.ContainsKey(new(x, y)))
         {
             return true;
         }
         Vector3 center = new Vector3(x, 0, y) * cellSize;
         Vector3 size = Vector3.one * cellSize;
-        bool occupied = towers[new Vector2Int(x, y)] != null;
+        bool occupied = gridObjects[new Vector2Int(x, y)] != null;
         bool floorIsFree = !Physics.CheckBox(center, size * 0.5f, Quaternion.identity, customColliderLayer);
         bool canPlaceTower = floorIsFree && !occupied;
         return !canPlaceTower;
     }
 
-    public bool OccupyTowerPoint(Tower tower, Vector2Int position)
+    public bool OccupyTowerPoint(GridObject gridObject, Vector2Int position)
     {
-        if (towers[position] != null)
+        if (gridObjects[position] != null)
         {
             return false;
         }
-        towers[position] = tower;
+        gridObjects[position] = gridObject;
         return true;
     }
 
     public bool RemoveTowerFromPoint(Vector2Int position)
     {
-        if(towers[position] != null)
+        if(gridObjects[position] != null)
         {
-            towers.Remove(position);
+            gridObjects.Remove(position);
             return true;
         }
         return false;
     }
 
-    public void SnapTowerPosition(Tower towerToSnap, Vector3 referencePosition)
+    public void SnapTowerPosition(GridObject gridObjectToSnap, Vector3 referencePosition)
     {
         int x = Mathf.RoundToInt(referencePosition.x);
         int z = Mathf.RoundToInt(referencePosition.z);
 
         Vector3 towerPosition = new Vector3(x, 0, z);
-        towerToSnap.transform.position = towerPosition;
-        tRenderer.RenderRadius(towerToSnap.Range.y, towerPosition);
+        gridObjectToSnap.transform.position = towerPosition;
+        if(gridObjectToSnap is Tower tower)
+        {
+            tRenderer.RenderRadius(tower.Range.y, towerPosition);
+        }
     }
 
     public Vector2Int WorldToGrid(Vector3 worldPosition)
@@ -75,7 +78,7 @@ public class TD_Grid : MonoBehaviour
 
     private void CreateGrid(int sizeX, int sizeY)
     {
-        towers = new();
+        gridObjects = new();
         //towerPoints = new TowerPoint[sizeX, sizeY];
         Vector2Int roundedPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));
         for (int x = 0; x < sizeX; x++)
@@ -83,7 +86,7 @@ public class TD_Grid : MonoBehaviour
             for (int y = 0; y < sizeY; y++)
             {
                 Vector2Int pointAssociation = new Vector2Int(roundedPosition.x + x, roundedPosition.y + y);
-                towers.Add(pointAssociation, null);
+                gridObjects.Add(pointAssociation, null);
                 //towerPoints[x, y] = new TowerPoint();
             }
         }

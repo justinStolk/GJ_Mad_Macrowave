@@ -68,11 +68,11 @@ public class UIHandler : MonoBehaviour
         waveCounterText.text = $"Wave {waveCount}";
     }
 
-    public void CreateTowerShopInterface(Tower[] allTowers, System.Action<Tower> onButtonActivated)
+    public void CreateTowerShopInterface(GridObject[] allGridObjects, System.Action<GridObject> onButtonActivated)
     {
-        for (int i = 0; i < allTowers.Length; i++)
+        for (int i = 0; i < allGridObjects.Length; i++)
         {
-            Tower current = allTowers[i];
+            GridObject current = allGridObjects[i];
 
             TowerShopButton tsb = Instantiate(buttonTemplate, buttonContainer);
             tsb.AddOnClickEvent(() => onButtonActivated.Invoke(current));
@@ -83,10 +83,10 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-    private void ShowDescription(Tower towerToDescribe)
+    private void ShowDescription(GridObject objectToDescribe)
     {
-        descriptionTitle.text = towerToDescribe.Name;
-        descriptionText.text = towerToDescribe.Description;
+        descriptionTitle.text = objectToDescribe.Name;
+        descriptionText.text = objectToDescribe.Description;
         descriptorPanel.gameObject.SetActive(true);
     }
 

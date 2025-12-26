@@ -46,19 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e74a8fddf90ba54197f4944b9beea2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Barrier
-  towerName: Barrier
+  name: Barrier
   description: "A sturdy table which acts as a barrier. \nCan be used to reroute
     enemies."
-  towerIcon: {fileID: 21300000, guid: 893e2b374dbfc97449842bd5592d11c5, type: 3}
-  shootingSoundSource: {fileID: 0}
   cost: 5
-  power: 0
-  attackInterval: 0
-  range: {x: 0, y: 1}
-  excludedLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  startingTowerUpgrades: []
+  icon: {fileID: 21300000, guid: 893e2b374dbfc97449842bd5592d11c5, type: 3}
 --- !u!208 &7346162752458999054
 NavMeshObstacle:
   m_ObjectHideFlags: 0

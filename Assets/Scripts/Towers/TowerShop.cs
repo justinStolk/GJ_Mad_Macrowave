@@ -9,7 +9,7 @@ public class TowerShop : MonoBehaviour
 {
     public ushort Funds => funds;
 
-    [SerializeField] private Tower[] availableTowers;
+    [SerializeField] private GridObject[] gridObjects;
     // This might need to be changed to getting them automatically through resources.
     [SerializeField] private ushort funds = 100;
 
@@ -22,18 +22,18 @@ public class TowerShop : MonoBehaviour
     //[SerializeField] private Material invalidMaterial;
 
     [Header("Events")]
-    [SerializeField] private UnityEvent<Tower> onTowerShopTowerChanged;
-    [SerializeField] private UnityEvent<Tower[], Action<Tower>> onTowerInterfaceCall;
+    [SerializeField] private UnityEvent<GridObject> onTowerShopTowerChanged;
+    [SerializeField] private UnityEvent<GridObject[], Action<GridObject>> onTowerInterfaceCall;
     [SerializeField] private UnityEvent<ushort> onFundsChanged;
 
     private InputAction placementAction;
-    private Tower virtualTower;
+    private GridObject virtualGridObject;
     private List<Material> towerMaterials;
 
     private void Awake()
     {
         placementAction = InputSystem.actions.FindAction("Placement");
-        onTowerInterfaceCall?.Invoke(availableTowers, PlanTower);
+        onTowerInterfaceCall?.Invoke(gridObjects, PlanTower);
         Enemy.OnDeathFunds += (ushort funds) => ChangeFunds(funds);
         onFundsChanged?.Invoke(funds);
     }
@@ -44,27 +44,30 @@ public class TowerShop : MonoBehaviour
         onFundsChanged?.Invoke(funds);
     }
 
-    private void PlanTower(Tower towerToBuy)
+    private void PlanTower(GridObject objectToBuy)
     {
-        if (Funds >= towerToBuy.Cost)
+        if (Funds >= objectToBuy.Cost)
         {
-            CreateVirtualTower(towerToBuy);
+            CreateVirtualGridObject(objectToBuy);
         }
         else
         {
-            Debug.LogWarning("Not enough funds to buy: " + towerToBuy.name);
+            Debug.LogWarning("Not enough funds to buy: " + objectToBuy.name);
         }
     }
 
-    private void CreateVirtualTower(Tower template)
+    private void CreateVirtualGridObject(GridObject template)
     {
-        if(virtualTower != null)
+        if(virtualGridObject != null)
         {
-            Destroy(virtualTower);
+            Destroy(virtualGridObject);
         }
-        virtualTower = Instantiate(template);
-        virtualTower.DeactivateTower();
-        virtualTower.GetComponent<NavMeshObstacle>().enabled = false;
+        virtualGridObject = Instantiate(template);
+        if(virtualGridObject is Tower tower)
+        {
+            tower.DeactivateTower();
+        }
+        virtualGridObject.GetComponent<NavMeshObstacle>().enabled = false;
         //Material[] vtMaterials = virtualTower.GetComponentInChildren<MeshRenderer>().materials;
         //for (int i = 0; i < vtMaterials.Length; i++)
         //{
@@ -72,18 +75,18 @@ public class TowerShop : MonoBehaviour
         //    vtMaterials[i] = validMaterial;
         //}
 
-        onTowerShopTowerChanged?.Invoke(virtualTower);
+        onTowerShopTowerChanged?.Invoke(virtualGridObject);
         placementAction.started += ValidateTower;
     }
 
     private void ValidateTower(InputAction.CallbackContext context)
     {
-        Vector2Int gridPosition = grid.WorldToGrid(virtualTower.transform.position);
+        Vector2Int gridPosition = grid.WorldToGrid(virtualGridObject.transform.position);
         if (grid.IsPositionOccupied(gridPosition.x, gridPosition.y))
         {
             return;
         }
-        NavMeshObstacle towerNMObstacle = virtualTower.GetComponent<NavMeshObstacle>();
+        NavMeshObstacle towerNMObstacle = virtualGridObject.GetComponent<NavMeshObstacle>();
 
         towerNMObstacle.enabled = true;
         StartCoroutine(spawner.EvaluateEndPointAccessability(towerNMObstacle, PlaceTowerIfValid));
@@ -96,13 +99,16 @@ public class TowerShop : MonoBehaviour
             InputSystem.actions.FindAction("Positioning").Enable();
             return;
         }
-        Vector2Int gridPosition = grid.WorldToGrid(virtualTower.transform.position);
+        Vector2Int gridPosition = grid.WorldToGrid(virtualGridObject.transform.position);
 
-        if (grid.OccupyTowerPoint(virtualTower, gridPosition))
+        if (grid.OccupyTowerPoint(virtualGridObject, gridPosition))
         {
-            ChangeFunds(-virtualTower.Cost);
-            virtualTower.ActivateTower();
-            virtualTower = null;
+            ChangeFunds(-virtualGridObject.Cost);
+            if(virtualGridObject is Tower tower)
+            {
+                tower.ActivateTower();
+            }
+            virtualGridObject = null;
             onTowerShopTowerChanged?.Invoke(null);
             placementAction.started -= ValidateTower;
             tRenderer.StopRender();

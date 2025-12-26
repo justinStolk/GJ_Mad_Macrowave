@@ -1,17 +1,14 @@
 using UnityEngine;
 
-public class Barrier : Tower
+public class Barrier : GridObject
 {
+    public override string Name => name;
+    public override string Description => description;
+    public override ushort Cost => cost;
+    public override Sprite Icon => icon;
 
-    protected override bool _hasTarget => false;
-
-    protected override void AttackTarget()
-    {
-        
-    }
-
-    protected override void FindTarget()
-    {
-        
-    }
+    [SerializeField] private new string name;
+    [SerializeField] private string description;
+    [SerializeField] private ushort cost;
+    [SerializeField] private Sprite icon;
 }
