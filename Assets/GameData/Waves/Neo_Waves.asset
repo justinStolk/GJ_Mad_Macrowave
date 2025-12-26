@@ -40,12 +40,102 @@ MonoBehaviour:
       spawnPause: 0
     waveExitTime: 7
   - spawnData:
+    - enemyReference: {fileID: 2339601187471986450, guid: e3804d2204f5cb24eb4868512f3fe52a, type: 3}
+      enemyCount: 2
+      spawnInterval: 2
+      spawnPause: 0
     - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
       enemyCount: 10
       spawnInterval: 0.8
       spawnPause: 3
+    waveExitTime: 7
+  - spawnData:
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 10
+      spawnInterval: 0.8
+      spawnPause: 3
+    - enemyReference: {fileID: 2339601187471986450, guid: 0042490e7c2b03948afad6f09b791f7c, type: 3}
+      enemyCount: 2
+      spawnInterval: 2
+      spawnPause: 4
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 8
+      spawnInterval: 0.8
+      spawnPause: 0
+    waveExitTime: 7
+  - spawnData:
+    - enemyReference: {fileID: 2339601187471986450, guid: d2dac79b318861b47a73c3b8e5213b0b, type: 3}
+      enemyCount: 1
+      spawnInterval: 0.8
+      spawnPause: 3
+    waveExitTime: 10
+  - spawnData:
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 10
+      spawnInterval: 0.8
+      spawnPause: 3
+    - enemyReference: {fileID: 2339601187471986450, guid: 0042490e7c2b03948afad6f09b791f7c, type: 3}
+      enemyCount: 4
+      spawnInterval: 2
+      spawnPause: 0
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 10
+      spawnInterval: 0.7
+      spawnPause: 0
+    waveExitTime: 7
+  - spawnData:
     - enemyReference: {fileID: 2339601187471986450, guid: e3804d2204f5cb24eb4868512f3fe52a, type: 3}
+      enemyCount: 5
+      spawnInterval: 1
+      spawnPause: 3
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 7
+      spawnInterval: 0.7
+      spawnPause: 0
+    waveExitTime: 7
+  - spawnData:
+    - enemyReference: {fileID: 2339601187471986450, guid: e3804d2204f5cb24eb4868512f3fe52a, type: 3}
+      enemyCount: 5
+      spawnInterval: 1
+      spawnPause: 3
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 7
+      spawnInterval: 0.7
+      spawnPause: 2
+    - enemyReference: {fileID: 2339601187471986450, guid: 0042490e7c2b03948afad6f09b791f7c, type: 3}
+      enemyCount: 3
+      spawnInterval: 2
+      spawnPause: 3
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 6
+      spawnInterval: 0.6
+      spawnPause: 1
+    waveExitTime: 7
+  - spawnData:
+    - enemyReference: {fileID: 2339601187471986450, guid: e3804d2204f5cb24eb4868512f3fe52a, type: 3}
+      enemyCount: 4
+      spawnInterval: 0.9
+      spawnPause: 3
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 6
+      spawnInterval: 0.7
+      spawnPause: 5
+    - enemyReference: {fileID: 2339601187471986450, guid: 42be759aa53df394d87548d292530913, type: 3}
+      enemyCount: 1
+      spawnInterval: 0
+      spawnPause: 5
+    - enemyReference: {fileID: 2339601187471986450, guid: a8753d7148e766446bdfc0a06add0ce3, type: 3}
+      enemyCount: 4
+      spawnInterval: 0.6
+      spawnPause: 1
+    waveExitTime: 7
+  - spawnData:
+    - enemyReference: {fileID: 2339601187471986450, guid: 0042490e7c2b03948afad6f09b791f7c, type: 3}
       enemyCount: 3
       spawnInterval: 1.5
-      spawnPause: 0
+      spawnPause: 3
+    - enemyReference: {fileID: 2339601187471986450, guid: d2dac79b318861b47a73c3b8e5213b0b, type: 3}
+      enemyCount: 1
+      spawnInterval: 0.7
+      spawnPause: 2
     waveExitTime: 7
