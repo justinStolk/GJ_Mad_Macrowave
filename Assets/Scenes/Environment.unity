@@ -16811,7 +16811,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed3238daadc33f40b3eae259b2ab9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerShop
-  gridObjects: []
+  gridObjects:
+  - {fileID: 7804959536544373982, guid: e3e9896d396a67c46b5e456a764f26b3, type: 3}
+  - {fileID: 4674995381686380745, guid: c4719cdbf8851794e9a4a1afb5770f24, type: 3}
+  - {fileID: 3410448172341451053, guid: ef6734f40394d104bb82c7610048943f, type: 3}
+  - {fileID: 2174999141709587855, guid: 1d781e2657dbc60409e0c9f0a4005c4b, type: 3}
   funds: 25
   grid: {fileID: 807873746}
   tRenderer: {fileID: 807873748}
